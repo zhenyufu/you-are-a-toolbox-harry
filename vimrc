@@ -10,15 +10,13 @@
 "       and other bits and pieces
         
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Basics
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Getting help
+"""" Getting help
 " :help 
-
-
+"""" Moving around 
+" h j k l 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -57,23 +55,20 @@ endif
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
-set nowb
+set writebackup
 set noswapfile
-
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UI 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on line numbers
-set nu
+set number
 
 " Show the command being typed in the bottom right corner: try gg 
 set showcmd
 
-" Set 10 lines below the cursor when scrolling
+" Keep 10 lines below the cursor when scrolling
 set scrolloff=10
 
 " command completion with tab
@@ -123,10 +118,7 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-"Don't need ruler with status line 
-" set ruler
-
-" Always show the status line
+" Always show the status line - You don't need `set ruler` with status line 
 set laststatus=2
 
 " Format the status line
@@ -134,8 +126,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ %{''.(&fenc!=''?&fenc:&enc).''}\ \
 set statusline+=CWD:\ %r%{getcwd()}%h\ \ 
 set statusline+=%= "Right Side
 set statusline+=Row:\ %l/%L\ (%03p%%)\ Column:\ %c\ 
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,8 +138,6 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -170,16 +158,8 @@ endtry
 
 set background=dark
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
+" Sets the EOL
+set fileformats=unix,dos,mac
 
 
 
@@ -200,8 +180,8 @@ set tabstop=4
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent
+set smartindent
 set wrap "Wrap lines
 
 
