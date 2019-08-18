@@ -4,26 +4,33 @@
 " 
 " Based on:
 "       https://github.com/amix/vimrc
-"       https://github.com/mbrochh/vim-as-a-python-ide
-"       https://www.youtube.com/watch?v=YhqsjUUHj6g
 "       ...
 "       and other bits and pieces
-        
+ 
+" To Do:
+" https://github.com/lifepillar/vim-mucomplete
+"       https://github.com/mbrochh/vim-as-a-python-ide
+"       https://www.youtube.com/watch?v=YhqsjUUHj6g
+       
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Basics
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" Getting help
 " :help 
+
 """" Moving around 
 " h j k l 
+
+"""" Page navigation
+" ctrl+b ctrl+f
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Automatic source .vimrc on save
-autocmd! bufwritepost .vimrc source %
+"autocmd! bufwritepost .vimrc source %
 
 " Indentation with > and < and maintains selection until you're happy with it
 vnoremap < <gv 
@@ -58,6 +65,25 @@ set nobackup
 set writebackup
 set noswapfile
 
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Quickly open a buffer for scribble
+map <leader>, :e ~/temp.md<cr>
+
+" Toggle paste mode on and off
+
+map <leader>p :setlocal paste!<cr>
+
+" Move visual selected block using ctrl+[jk] 
+nmap <C-j> mz:m+<cr>`z
+nmap <C-k> mz:m-2<cr>`z
+vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z 
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UI 
@@ -87,7 +113,6 @@ set incsearch
 " Visual mode pressing * or # searches for the current selection by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
 
 " Height of the command bar
 set cmdheight=1
@@ -158,13 +183,9 @@ endtry
 
 set background=dark
 
-" Sets the EOL
-set fileformats=unix,dos,mac
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab, indent, EOL
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -184,27 +205,37 @@ set autoindent
 set smartindent
 set wrap "Wrap lines
 
+" Sets the EOL
+set fileformats=unix,dos,mac
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" => Navigating buffers, tabs 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+" Moving to next previous buffers 
+map <leader>j :bnext<cr>
+map <leader>k :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -217,7 +248,6 @@ map <leader>t<leader> :tabnext
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -233,57 +263,22 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
+" => Spell checking 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" go to next and previous 
+map <leader>sn ]s 
+map <leader>sp [s
 
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
+"whitelist marked misspelling
+"map <leader>sa zg
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" get suggestions
+map <leader>s? z=
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -340,29 +335,25 @@ function! VisualSelection(direction, extra_filter) range
 endfunction
 
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking - never really used 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s 
-map <leader>sp [s
-"map <leader>sa zg
-" get suggestions
-map <leader>s? z=
-
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Do I need this ? Can I delete 
+" => Marked for deletion 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable filetype plugins
 "filetype plugin on
 "filetype indent on
 
+" => Editing mappings
+"nmap <M-j> mz:m+<cr>`z
+"nmap <M-k> mz:m-2<cr>`z
+"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+
+
+"if has("mac") || has("macunix")
+"  nmap <D-j> <M-j>
+"  nmap <D-k> <M-k>
+"  vmap <D-j> <M-j>
+"  vmap <D-k> <M-k>
+"endif
 
