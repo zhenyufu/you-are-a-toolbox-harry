@@ -1,36 +1,63 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => What's up
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim is the text editor 
 " 
 " Based on:
-"       https://github.com/amix/vimrc
-"       ...
-"       and other bits and pieces
- 
-" To Do:
-" https://github.com/lifepillar/vim-mucomplete
-"       https://github.com/mbrochh/vim-as-a-python-ide
-"       https://www.youtube.com/watch?v=YhqsjUUHj6g
-       
-
+"   https://github.com/amix/vimrc
+"   
+" TO DO:
+"   https://github.com/lifepillar/vim-mucomplete
+"   https://github.com/mbrochh/vim-as-a-python-ide
+"   https://www.youtube.com/watch?v=YhqsjUUHj6g
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Basics
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" Getting help
-" :help 
-
+" `:help command`
+"
 """" Moving around 
-" h j k l 
-
+" `h j k l` basic navigation  
+" `0` go to the start of the line 
+" `$` go to the end of the line 
+" `gg` go to the start of the file 
+" `:$` go to the end of the file 
+"
+"""" editing 
+" `u` undo
+" `<C-r>` redo 
+" `<C-p>` auto complete the current word 
+"
+"""" multi line commenting 
+" `<C-v` using visual block mode for selecting 
+" `I #` capital I and comment character 
+" `esc esc`
+"
 """" Page navigation
-" ctrl+b ctrl+f
-
+" <C-b> <C-f>
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Automatic source .vimrc on save
-"autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost .vimrc source %
+
+" map leader key , you have only 1000ms (by default) to enter the command following this: ,w does a force write 
+let mapleader = ","
+
+" remap to escape `<C-[>` works out of box
+imap <leader><leader> <Esc>
+
+" Quickly open a buffer for scribble
+map <leader><leader> :e ~/temp.md<cr>
+
+" disable the arrow keys for learning - this also disables scrolling on mac terminal vim 
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
 
 " Indentation with > and < and maintains selection until you're happy with it
 vnoremap < <gv 
@@ -41,10 +68,6 @@ set history=500
 
 " Set to auto read when a file is changed from the outside - this does not always work, use :e
 set autoread
-
-" map leader key , you have only 1000ms (by default) to enter the command following this: ,w does a force write 
-let mapleader = ","
-
 " Force write overriding read-only
 nmap <leader>w :w!<cr>
 
@@ -70,9 +93,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Quickly open a buffer for scribble
-map <leader>, :e ~/temp.md<cr>
 
 " Toggle paste mode on and off
 
@@ -223,19 +243,12 @@ endif
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Navigating buffers, tabs 
+" => Navigating tabs (a collection of windows acting like a workspace)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
-" Moving to next previous buffers 
-map <leader>j :bnext<cr>
-map <leader>k :bprevious<cr>
+" `:tabs` to list all tabsi
+" `:tabn` go to next tab
+" `:tabp` go to previous tab
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -263,10 +276,34 @@ try
 catch
 endtry
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Navigating windows (way to view a buffer)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" Window splits 
+" `:split` `:vsplit` create a split 
+" `<C-w> directon` to switch windows 
+" `<C-w>_`  `<C-w>|` maximise the split 
+" `<C-w>+` `<C-w>-` grow or reduce the split 
+"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Navigating buffers (file buffer)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+" Moving to next previous buffers 
+map <leader>j :bnext<cr>
+map <leader>k :bprevious<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set spell
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -280,6 +317,15 @@ map <leader>sp [s
 " get suggestions
 map <leader>s? z=
 
+" set to underline instead of highlighting
+hi clear SpellBad                                                
+hi SpellBad cterm=underline                                      
+hi clear SpellRare                                               
+hi SpellRare cterm=underline                                     
+hi clear SpellCap                                                
+hi SpellCap cterm=underline                                      
+hi clear SpellLocal
+hi SpellLocal cterm=underline
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -334,26 +380,4 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Marked for deletion 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable filetype plugins
-"filetype plugin on
-"filetype indent on
-
-" => Editing mappings
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-
-
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
 
