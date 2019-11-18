@@ -6,7 +6,7 @@ case "${unameOut}" in
     Linux*)       
         # natural scolling
         synclient VertScrollDelta=-75
-        synclient VertScrollDelta=-75
+        synclient HorizScrollDelta=-75
 
         # map super key to control as well 
         # also disable any system key maps on super: xfce opens the menu
