@@ -1,6 +1,22 @@
 #!/bin/bash
 
 
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)       
+        # natural scolling
+        synclient VertScrollDelta=-75
+        synclient VertScrollDelta=-75
+
+        # map super key to control as well 
+        # also disable any system key maps on super: xfce opens the menu
+        xmodmap -e "remove mod4 = Super_L"
+        xmodmap -e "add control = Super_L"
+    ;;
+    Darwin*)    
+       # stuff 
+    ;;
+esac
 function harry-info() {
     echo '######## RAM'
     free
