@@ -1,0 +1,11 @@
+# make sure the vol directory is owned by the user otherwise permission problems
+version:  '3'
+services:
+    notebook:
+        image: jupyter/datascience-notebook
+        container_name: notebook
+        ports:
+            - 8888:8888
+        volumes:
+            - ./vol:/home/jovyan
+        command: "start-notebook.sh"
