@@ -1,3 +1,3 @@
 #!/bin/bash
-cp ~/.vimrc vimrc
+cp ~/.vimrc config/vimrc
 cp ~/.harry.bash config/harry.bash
