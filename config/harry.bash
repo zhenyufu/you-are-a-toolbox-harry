@@ -1,6 +1,11 @@
 #!/bin/bash
 
+## set editor 
+export VISUAL=vim
+export EDITOR=vim
 
+
+## scrolling 
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)       
@@ -17,6 +22,11 @@ case "${unameOut}" in
        # stuff 
     ;;
 esac
+
+
+#### Functions 
+
+## system info
 function harry-info() {
     echo '######## RAM'
     free
@@ -24,7 +34,7 @@ function harry-info() {
     lsblk
 }
 
-
+## pass in a file and counts occurance of every word 
 function harry-word-count() {
     cat $1 | tr '[:space:]' '[\n*]' | grep -v "^/s*$" | sort | uniq -c | sort -bnr    
 }
