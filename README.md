@@ -2,6 +2,7 @@
 
 Some tools and commands 
 
-
+```
 docker-compose -f docker/mysql.yml up
-ocker-compose -f notebook/docker-compose.yml up
+docker-compose -f notebook/docker-compose.yml up
+```
