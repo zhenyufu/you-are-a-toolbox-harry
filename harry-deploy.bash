@@ -1,5 +1,10 @@
 #!/bin/bash
-mv ~/.vimrc ~/vimrc_old
+
+echo "#### setting up vim"
+sudo apt-get install vim 
+if [ -f $HOME/.vimrc ]; then
+    mv ~/.vimrc ~/vimrc_old
+fi
 cp config/vimrc ~/.vimrc
 
 
