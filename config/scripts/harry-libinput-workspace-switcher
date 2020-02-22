@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Display notification of which workspace it is when switching using libinput
+# 1. add this file to /usr/local/bin/harry-libinput-workspace-switcher
+# 2. edit: ~/.config/libinput-gestures.conf
+#   # Move between workspaces wrapped - left and right flipped for natural scrolling 
+#   gesture swipe right 4 harry-libinput-workspace-switcher left 
+#   gesture swipe left  4 harry-libinput-workspace-switcher right 
+
+
+TITLE="Workspace"
+# Workspace number starts at 0 as all things should 
+
+if [ $1 = "left" ]; then
+    xdotool key control+alt+Left
+    notify-send "$TITLE" "$(wmctrl -d | grep \* | cut -d' ' -f1)" 
+elif [ $1 = "right" ]; then 
+    xdotool key control+alt+Right
+    notify-send "$TITLE" "$(wmctrl -d | grep \* | cut -d' ' -f1)" 
+else
+    notify-send "$TITLE" "specify left or right - double check: ~/.config/libinput-gestures.conf" 
+fi
+
