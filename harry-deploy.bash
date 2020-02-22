@@ -5,15 +5,15 @@ sudo apt-get install vim
 
 echo "#### copying vimrc"
 if [ -f $HOME/.vimrc ]; then
-    mv ~/.vimrc ~/vimrc_old
+    mv $HOME/.vimrc $HOME/vimrc_old
 fi
-cp config/vimrc ~/.vimrc
+cp config/vimrc $HOME/.vimrc
 
 echo "#### copying .harry.hash"
 if [ -f $HOME/.harr.bash ]; then
     mv $HOME/.harry.bash $HOME/harry_old.bash
 fi
-cp config/harry.bash ~/.harry.bash
+cp config/harry.bash $HOME/.harry.bash
 
 
 echo "#### including .harry.bash to bashrc"
