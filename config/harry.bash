@@ -35,22 +35,27 @@ case "${unameOut}" in
         synclient VertScrollDelta=-26
         synclient HorizScrollDelta=-26
 
+        # set double tap 2 to right click and triple tab to none
+        synclient "TapButton2"=3
+        synclient "TapButton3"=0
+
         # switch left ctrl and alt
-        xmodmap -e "clear control"
-        xmodmap -e "clear mod1"
-        xmodmap -e "keycode 37 = Alt_L Meta_L"
-        xmodmap -e "keycode 64 = Control_L"
-        xmodmap -e "add control = Control_L Control_R"
-        xmodmap -e "add mod1 = Alt_L Meta_L"
+        # xmodmap -e "clear control"
+        # xmodmap -e "clear mod1"
+        # xmodmap -e "keycode 37 = Alt_L Meta_L"
+        # xmodmap -e "keycode 64 = Control_L"
+        # xmodmap -e "add control = Control_L Control_R"
+        # xmodmap -e "add mod1 = Alt_L Meta_L"
+
+        # map super key to ctrl: also need to disable any system key maped to super
+        xmodmap -e "remove mod4 = Super_L"
+        xmodmap -e "add control = Super_L"
 
         # to enable terminal ctrl copy paste: this needs a restart  
         # uncomment `~/.config/xfce4/terminal/accels.scm`:
         # (gtk_accel_path "<Actions>/terminal-window/paste" "<Primary>v")
         # (gtk_accel_path "<Actions>/terminal-window/copy" "<Primary>c")
         
-        # map super key to ctrl: also disable any system key maps to super
-        # xmodmap -e "remove mod4 = Super_L"
-        # xmodmap -e "add control = Super_L"
     ;;
     Darwin*)    
        # stuff 
