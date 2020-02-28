@@ -1,4 +1,6 @@
 #!/bin/sh
+# put this in /etc/pm/sleep.d/
+
 case "${1}" in
     resume|thaw)
         su $USER -c "source /home/$USER/.harry.bash" &
