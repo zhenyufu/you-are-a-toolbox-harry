@@ -1,25 +1,43 @@
 #!/bin/bash
 
-# Display notification of which workspace it is when switching using libinput
+# Script to pops a notification when the switching the workspace for XFCE 
+#
+# * Gesture switching using libinput
 # 1. add this file to /usr/local/bin/harry-libinput-workspace-switcher
 # 2. edit: ~/.config/libinput-gestures.conf
 #   # Move between workspaces wrapped - left and right flipped for natural scrolling 
-#   gesture swipe right 4 harry-libinput-workspace-switcher left 
-#   gesture swipe left  4 harry-libinput-workspace-switcher right 
-
-# for a polling solution that should work with more situations: 
+#   gesture swipe right 3 harry-libinput-workspace-switcher left 
+#   gesture swipe left  3 harry-libinput-workspace-switcher right 
+# 
+# * Keyboard switching with the hotkeys 
+# 1. Go to Window Manager and disable the hot key switch 
+# 2. To to Keyboard and set up shortcuts 
+#
+#
+# Alternative polling solution: 
 # https://forum.xfce.org/viewtopic.php?id=9200
 
-TITLE="Workspace"
+
 # Workspace number starts at 0 as all things should 
+TITLE="Workspace"
+WORKSPACE_NUM=$(wmctrl -d | wc -l)
+WORKSPACE_CURRENT=$(wmctrl -d | grep \* | cut -d' ' -f1)
 
 if [ $1 = "left" ]; then
-    xdotool key control+alt+Left
-    notify-send "$TITLE" "$(wmctrl -d | grep \* | cut -d' ' -f1)" 
+    WORKSPACE_TARGET=$(($WORKSPACE_CURRENT-1))
+    if [ $WORKSPACE_TARGET -lt 0 ]; then
+        WORKSPACE_TARGET=$(($WORKSPACE_NUM-1)) 
+    fi
+    wmctrl -s $WORKSPACE_TARGET
+    notify-send $TITLE $WORKSPACE_TARGET 
 elif [ $1 = "right" ]; then 
-    xdotool key control+alt+Right
-    notify-send "$TITLE" "$(wmctrl -d | grep \* | cut -d' ' -f1)" 
+    WORKSPACE_TARGET=$(($WORKSPACE_CURRENT+1))
+    if [ $WORKSPACE_TARGET -ge $WORKSPACE_NUM ]; then
+        WORKSPACE_TARGET=0 
+    fi
+    wmctrl -s $WORKSPACE_TARGET
+    notify-send $TITLE $WORKSPACE_TARGET 
 else
-    notify-send "$TITLE" "specify left or right - double check: ~/.config/libinput-gestures.conf" 
+    notify-send $TITLE "specify left or right to this command" 
 fi
 
