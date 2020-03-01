@@ -281,10 +281,11 @@ endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" Window splits 
 " `:split` `:vsplit` create a split 
-" `<C-w> directon` to switch windows 
-" `<C-w>_`  `<C-w>|` maximise the split 
-" `<C-w>+` `<C-w>-` grow or reduce the split 
-"
+" `:new` `:vnew` split and edit file 
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Navigating buffers (file buffer)

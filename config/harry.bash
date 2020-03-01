@@ -78,6 +78,28 @@ function harry-word-count() {
     cat $1 | tr '[:space:]' '[\n*]' | grep -v "^/s*$" | sort | uniq -c | sort -bnr    
 }
 
+## generate a desktop file for the executable, eg: harry-create-desktop-file name exec icon 
+function harry-create-desktop-file() {
+    if [[ $# -eq 3 ]]; then
+        #DESKTOP_FILE="/usr/share/applications/$1.desktop"
+        DESKTOP_FILE="$HOME/.local/share/applications/$1.desktop"
+        echo "creating: $DESKTOP_FILE"
+        touch $DESKTOP_FILE
+        echo "[Desktop Entry]" >> $DESKTOP_FILE
+        echo "Version=1.0" >> $DESKTOP_FILE
+        echo "Name=$1" >> $DESKTOP_FILE
+        echo "Exec=$2" >> $DESKTOP_FILE
+        echo "Icon=$3" >> $DESKTOP_FILE
+        echo "Terminal=false" >> $DESKTOP_FILE
+        echo "Type=Application" >> $DESKTOP_FILE
+
+    else
+        echo "pass in : name, executable path, icon path"
+    fi
+}
+
+
+
 
 
 
