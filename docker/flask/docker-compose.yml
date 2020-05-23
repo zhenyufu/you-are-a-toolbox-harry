@@ -1,0 +1,12 @@
+version: '3'
+
+
+services:
+  flask:
+    build: ./flask
+    command: python hello-world.py 
+    volumes:
+      - ./app:/app
+    ports:
+      - "5000:5000"
+
