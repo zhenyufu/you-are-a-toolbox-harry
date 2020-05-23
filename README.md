@@ -1,5 +1,7 @@
 # you-are-a-toolbox-harry
 Some tools and commands 
+
+## Content
 ```
 ├── config
 │   ├── apps : saved config for some application 
@@ -11,11 +13,10 @@ Some tools and commands
 ├── harry-save.bash : copy system config to repo config
 ├── random
 ```
+<img src="random/harry.jpg" width="250">
 
-![lol](random/harry.jpg =250x250)
 
-
-### docker compose starter files 
+## docker compose starter files 
 To launch a container use: `./harry-docker.bash <directory>` 
 
 | Application | Directory | Comment |
