@@ -12,7 +12,7 @@ Some tools and commands
 ├── random
 ```
 
-![lol](random/harry.jpg)
+![lol](random/harry.jpg =250x250)
 
 
 ### docker compose starter files 
