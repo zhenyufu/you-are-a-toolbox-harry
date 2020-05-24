@@ -2,16 +2,19 @@
 
 # Script to pops a notification when the switching the workspace for XFCE 
 #
+# 0. add this file to /usr/local/bin/harry-xfce-workspace-switcher
+# 
 # * Gesture switching using libinput
-# 1. add this file to /usr/local/bin/harry-xfce-workspace-switcher
-# 2. edit: ~/.config/libinput-gestures.conf
+# 1. edit: ~/.config/libinput-gestures.conf
 #   # Move between workspaces wrapped - left and right flipped for natural scrolling 
 #   gesture swipe right 3 harry-xfce-workspace-switcher left 
 #   gesture swipe left  3 harry-xfce-workspace-switcher right 
 # 
 # * Keyboard switching with the hotkeys 
 # 1. Go to Window Manager and disable the hot key switch 
-# 2. To to Keyboard and set up shortcuts 
+# 2. Go to Keyboard and set up Application Shortcuts 
+#   harry-libinput-workspace-switcher left
+#   harry-libinput-workspace-switcher right
 #
 #
 # Alternative polling solution: 
