@@ -7,7 +7,7 @@
 # 2. edit: ~/.config/libinput-gestures.conf
 #   # Move between workspaces wrapped - left and right flipped for natural scrolling 
 #   gesture swipe right 3 harry-xfce-workspace-switcher left 
-#   gesture swipe left  3 harry-ixfce-workspace-switcher right 
+#   gesture swipe left  3 harry-xfce-workspace-switcher right 
 # 
 # * Keyboard switching with the hotkeys 
 # 1. Go to Window Manager and disable the hot key switch 
