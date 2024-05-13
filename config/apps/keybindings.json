@@ -1,0 +1,25 @@
+// Place your key bindings in this file to override the defaults
+[
+    // enable continued press: defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false   
+    // switch windows: ctrl + w
+    // switch tabs: ctrl + tab
+    // toggle between terminal and editor: ctrl + `
+
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    { 
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.focus"
+    },
+    { 
+        "key": "ctrl+`", 
+        "command": "workbench.action.focusActiveEditorGroup", 
+        "when": "terminalFocus"
+    } 
+]
