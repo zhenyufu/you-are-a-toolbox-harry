@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "#### setting up vim"
-sudo apt-get install vim 
+sudo apt-get install vim
 
 echo "#### copying vimrc"
 if [ -f $HOME/.vimrc ]; then
@@ -16,12 +16,14 @@ echo "#### setting up nvim/lazyvim"
 mkdir -p $HOME/.config/nvim
 cp -r config/nvim/ $HOME/.config/nvim/
 
-echo "#### copying .harry.hash"
-if [ -f $HOME/.harr.bash ]; then
+echo "#### copying .harry.bash"
+if [ -f $HOME/.harry.bash ]; then
     mv $HOME/.harry.bash $HOME/harry_old.bash
 fi
-cp config/harry.bash $HOME/.harry.bash
-
+case "$(uname -s)" in
+    Linux*)  cp config/harry-linux.bash $HOME/.harry.bash ;;
+    Darwin*) cp config/harry-mac.bash $HOME/.harry.bash ;;
+esac
 
 echo "#### including .harry.bash to bashrc"
 sed -i '$a #### harry.bash' $HOME/.bashrc
