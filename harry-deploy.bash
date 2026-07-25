@@ -25,8 +25,12 @@ case "$(uname -s)" in
     Darwin*) cp config/harry-mac.bash $HOME/.harry.bash ;;
 esac
 
-echo "#### including .harry.bash to bashrc"
-sed -i '$a #### harry.bash' $HOME/.bashrc
-sed -i '$a if [ -f $HOME/.harry.bash ]; then' $HOME/.bashrc
-sed -i '$a \\tsource $HOME/.harry.bash' $HOME/.bashrc
-sed -i '$a fi' $HOME/.bashrc
+echo "#### including .harry.bash to shellrc"
+case "$(uname -s)" in
+    Linux*)  SHELL_RC="$HOME/.bashrc" ;;
+    Darwin*) SHELL_RC="$HOME/.zshrc" ;;
+esac
+sed -i '$a #### harry.bash' $SHELL_RC
+sed -i '$a if [ -f $HOME/.harry.bash ]; then' $SHELL_RC
+sed -i '$a \\tsource $HOME/.harry.bash' $SHELL_RC
+sed -i '$a fi' $SHELL_RC
