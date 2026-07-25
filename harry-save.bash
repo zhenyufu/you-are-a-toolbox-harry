@@ -2,6 +2,8 @@
 cp ~/.vimrc config/vimrc
 cp ~/.harry.bash config/harry.bash
 
+# saving nvim/lazyvim config:
+cp -r ~/.config/nvim/ config/nvim/
 
 # saving app configs:
 cp ~/.config/libinput-gestures.conf config/apps/libinput-gestures.conf
