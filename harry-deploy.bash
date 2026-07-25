@@ -9,6 +9,9 @@ if [ -f $HOME/.vimrc ]; then
 fi
 cp config/vimrc $HOME/.vimrc
 
+echo "#### copying tmux.conf"
+cp config/tmux.conf $HOME/.tmux.conf
+
 echo "#### setting up nvim/lazyvim"
 mkdir -p $HOME/.config/nvim
 cp -r config/nvim/ $HOME/.config/nvim/
