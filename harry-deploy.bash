@@ -7,14 +7,14 @@ echo "#### copying vimrc"
 if [ -f $HOME/.vimrc ]; then
     mv $HOME/.vimrc $HOME/vimrc_old
 fi
-cp config/vimrc $HOME/.vimrc
+cp dot_config/vimrc $HOME/.vimrc
 
 echo "#### copying tmux.conf"
-cp config/tmux.conf $HOME/.tmux.conf
+cp dot_config/tmux.conf $HOME/.tmux.conf
 
 echo "#### setting up nvim/lazyvim"
 mkdir -p $HOME/.config/nvim
-cp -r config/nvim/ $HOME/.config/nvim/
+cp -r dot_config/nvim/ $HOME/.config/nvim/
 
 echo "#### copying .harry.bash"
 if [ -f $HOME/.harry.bash ]; then
@@ -27,7 +27,7 @@ esac
 
 echo "#### copying herdr config"
 mkdir -p $HOME/.config/herdr
-cp config/herdr/config.toml $HOME/.config/herdr/config.toml
+cp dot_config/herdr/config.toml $HOME/.config/herdr/config.toml
 
 echo "#### copying harry-xfce-workspace-switcher"
 sudo cp scripts/harry-xfce-workspace-switcher /usr/local/bin/harry-xfce-workspace-switcher
