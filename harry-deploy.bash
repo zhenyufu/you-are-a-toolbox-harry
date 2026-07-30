@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo "#### setting up vim"
-sudo apt-get install vim
 
 echo "#### copying vimrc"
 if [ -f $HOME/.vimrc ]; then
@@ -28,12 +27,6 @@ esac
 echo "#### copying herdr config"
 mkdir -p $HOME/.config/herdr
 cp dot_config/herdr/config.toml $HOME/.config/herdr/config.toml
-
-echo "#### copying harry-xfce-workspace-switcher"
-sudo cp scripts/harry-xfce-workspace-switcher /usr/local/bin/harry-xfce-workspace-switcher
-
-echo "#### copying 20_harry-wake pm script"
-sudo cp scripts/20_harry-wake /etc/pm/sleep.d/20_harry-wake
 
 echo "#### including .harry.bash to shellrc"
 case "$(uname -s)" in
