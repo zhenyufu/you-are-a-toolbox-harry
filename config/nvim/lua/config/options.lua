@@ -3,8 +3,10 @@
 -- Add any additional options here
 local opt = vim.opt
 
-opt.shiftwidth = 4   -- Size of an indent
-opt.tabstop = 4      -- Number of spaces tabs count for
-opt.softtabstop = 4  -- Number of spaces a tab counts for while editing
+opt.shiftwidth = 4 -- Size of an indent
+opt.tabstop = 4 -- Number of spaces tabs count for
+opt.softtabstop = 4 -- Number of spaces a tab counts for while editing
 opt.expandtab = true -- Use spaces instead of tabs
 
+-- top bar
+vim.opt.winbar = "%=%m %f"
