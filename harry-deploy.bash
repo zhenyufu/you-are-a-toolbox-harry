@@ -21,13 +21,19 @@ if [ -f $HOME/.harry.bash ]; then
     mv $HOME/.harry.bash $HOME/harry_old.bash
 fi
 case "$(uname -s)" in
-    Linux*)  cp config/harry-linux.bash $HOME/.harry.bash ;;
-    Darwin*) cp config/harry-mac.bash $HOME/.harry.bash ;;
+    Linux*)  cp bash_script/harry-linux.bash $HOME/.harry.bash ;;
+    Darwin*) cp bash_script/harry-mac.bash $HOME/.harry.bash ;;
 esac
 
 echo "#### copying herdr config"
 mkdir -p $HOME/.config/herdr
 cp config/herdr/config.toml $HOME/.config/herdr/config.toml
+
+echo "#### copying harry-xfce-workspace-switcher"
+sudo cp scripts/harry-xfce-workspace-switcher /usr/local/bin/harry-xfce-workspace-switcher
+
+echo "#### copying 20_harry-wake pm script"
+sudo cp scripts/20_harry-wake /etc/pm/sleep.d/20_harry-wake
 
 echo "#### including .harry.bash to shellrc"
 case "$(uname -s)" in

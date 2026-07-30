@@ -4,8 +4,8 @@
 
 # save platform-specific harry bash
 case "$(uname -s)" in
-    Linux*)  [ -f ~/.harry.bash ] && cp ~/.harry.bash config/harry-linux.bash ;;
-    Darwin*) [ -f ~/.harry.bash ] && cp ~/.harry.bash config/harry-mac.bash ;;
+    Linux*)  [ -f ~/.harry.bash ] && cp ~/.harry.bash bash_script/harry-linux.bash ;;
+    Darwin*) [ -f ~/.harry.bash ] && cp ~/.harry.bash bash_script/harry-mac.bash ;;
 esac
 
 # saving nvim/lazyvim config:
