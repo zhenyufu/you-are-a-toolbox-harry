@@ -25,6 +25,10 @@ case "$(uname -s)" in
     Darwin*) cp config/harry-mac.bash $HOME/.harry.bash ;;
 esac
 
+echo "#### copying herdr config"
+mkdir -p $HOME/.config/herdr
+cp config/herdr/config.toml $HOME/.config/herdr/config.toml
+
 echo "#### including .harry.bash to shellrc"
 case "$(uname -s)" in
     Linux*)  SHELL_RC="$HOME/.bashrc" ;;

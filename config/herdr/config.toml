@@ -1,0 +1,20 @@
+[terminal]
+# Instructs new panes to follow the current working directory
+new_cwd = "follow"
+
+[keys]
+# Main prefix key configuration
+prefix = "ctrl+space"
+
+# Easy config reload with prefix + r
+# reload_config = "r"
+
+# Intuitive split keys opening in current directory
+split_vertical   = "prefix+backslash"
+split_horizontal = "prefix+minus"
+
+# Vim-style pane navigation (Do NOT prepend "prefix+")
+navigate_pane_left  = "h"
+navigate_pane_down  = "j"
+navigate_pane_up    = "k"
+navigate_pane_right = "l"
